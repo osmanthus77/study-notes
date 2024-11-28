@@ -69,7 +69,7 @@ brew install bzip2 gzip libarchive libzip xz
 # python
 brew install python@3.9
 
-if grep -q -i PYTHON_39_PATH $HOME/.bashrc; then
+if grep -q -i PYTHON_39_PATH $HOME/.bashrc; then   #-q（quiet模式，找到匹配内容只返回状态，0找到匹配）
     echo "==> .bashrc already contains PYTHON_39_PATH"
 else
     echo "==> Updating .bashrc with PYTHON_39_PATH..."
@@ -83,87 +83,89 @@ else
 fi
 
 # https://github.com/Homebrew/homebrew-core/issues/43867
-# Upgrading pip breaks pip
-#pip3 install --upgrade pip setuptools wheel
+# Upgrading pip breaks pip   升级pip可能导致pip无法正常工作，查看上面链接
+#pip3 install --upgrade pip setuptools wheel   #用python的包管理工具pip3升级安装pip、setuptools（打包python包）和wheel（高校的python包分发格式，提高安装速度），可能出问题
 
 # r
 # brew install wang-q/tap/r@3.6.1
-hash R 2>/dev/null || {
+hash R 2>/dev/null || {   #R命令（启动r语言的交互环境）
     echo "==> Install R"
     brew install r
 }
 
-cpanm --mirror-only --mirror http://mirrors.ustc.edu.cn/CPAN/ --notest Statistics::R
+cpanm --mirror-only --mirror http://mirrors.ustc.edu.cn/CPAN/ --notest Statistics::R   #用cpanm（perl的简化工具）安装Statistics::R（与r语言交互的perl模块，可在perl中调用r功能）。--notest长选项（告诉cpanm跳过安装时的测试步骤）
 
 # java
 echo "==> Install Java"
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    brew install openjdk
+if [[ "$OSTYPE" == "darwin"* ]]; then   #$OSTYPE环境变量，存储操作系统类型。*通配符，匹配任意字符。$OSTYPE的值以darwin开头，则条件为真
+    brew install openjdk   #openjdk（open java development kit）java语言的开源实现，提供了用于开发和运行java应用程序的核心功能
 else
     brew install openjdk
-    # brew link openjdk --force
+    # brew link openjdk --force    #Homebrew会将软件安装到特定目录（如 /usr/local/Cellar/openjdk/）。但是不会自动链接到常规的系统路径（如 /usr/local/bin），无法直接通过命令行使用这些文件。使用 brew link 命令，可以将这些文件链接到系统路径，使得你能够在终端中直接调用。
 fi
-brew install ant maven
+brew install ant maven   #ant（apache ant）java建构工具，自动化建构过程（.xml格式）。maven建构工具，比ant灵活
 
-# pin these
+# pin these   #固定版本，防止意外更新或更改
 # brew pin perl
 # brew pin python@3.9
 # brew pin r
 
 # other programming languages
-brew install lua node
+brew install lua node    #lua轻量级脚本语言。node基于 Chrome V8 JavaScript 引擎的开源JavaScript运行时，允许在服务器端运行JavaScript脚本
 
 # taps
-brew tap wang-q/tap
+brew tap wang-q/tap    #brew tap访问额外的软件源（仓库），含有默认仓库里没有的软件包，并把它加入本地homebrew的源列表。这样可以从这个源安装软件
 
 # downloading tools
-brew install aria2 curl wget
+brew install aria2 curl wget   #aria2下载工具（大文件/多个文件），wget（类似curl，可递归下载、自动重试、后台下载）
 
 # gnu
-brew install gnu-sed gnu-tar
+brew install gnu-sed gnu-tar  #gnu-sed（gnu版本sed，默认版本bsd，命令行中文本替换、插入、删除等，gnu半扩展性强）。gnu-tar（tar，文件压缩解压，默认bsd版。gnu版本更丰富）
 
 # other tools
-brew install screen stow htop parallel pigz
-brew install tree pv
-brew install jq jid pup
-brew install datamash miller tsv-utils
-brew install proxychains-ng
+brew install screen stow htop parallel pigz   #screen（终端多路复合器，单一窗口多个会话），stow（管理多个软件包），htop（交互式系统监控，显示cpu内存等）
+#parallel（并行任务管理工具，并行运行多个命令/程序并分配到多个核心上），pigz（gzip的并行版本，利用多个cpu核心加速压缩解压）
+brew install tree pv  #tree命令（树状结构递归显示目录内容）。pv命令（pipe viewer，显示数据流通过管道丨的进度）
+brew install jq jid pup  #jq（解析、过滤、操作、格式化json格式的数据），jid（交互式的json查看和查询），pup（处理html数据）
+brew install datamash miller tsv-utils   #datamash（处理各种数据，特别是表格数据csv/tsv），miller（高效处理表格数据，格式不规则/大量数据），tsv-utils（专门处理tsv数据的工具集）
+brew install proxychains-ng   #proxychains-ng命令行工具（将所有流量通过代理服务器进行转发），多个代理串成代理链，流量依次通过。-ng是proxychains更现代的分支，更灵活强大
 
-brew install bat tealdeer # exa tiv
-brew install hyperfine ripgrep tokei
-brew install bottom # zellij
+brew install bat tealdeer # exa tiv    #bat（增强版cat，显示文件内容并可视化），tealdeer（tldr的客户端，可查看命令简化手册、搜索命令），exa（ls现代版，列出目录内容），tiv（命令行图像查看器，图像转字符在终端查看）
+brew install hyperfine ripgrep tokei  #hyperfine（性能基准测试），ripgrep（简称rg，快速的文本搜索，类似grep但更强），tokei（统计代码行数）
+brew install bottom # zellij     #bottom（命令行监视工具，top/htop高替，更现代化），zellij（现代化的终端复用器，screen高替）
 
 # large packages
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    brew install gpg2
+    brew install gpg2    #gpg2（GNU privacy guard的第二版），用于加密和签名数据的开源工具
 fi
 
-hash pandoc 2>/dev/null || {
+hash pandoc 2>/dev/null || {     #pandoc开源文档转换工具
     brew install pandoc
 }
 
-hash gnuplot 2>/dev/null || {
+hash gnuplot 2>/dev/null || {     #gnuplot强大的开源命令行图形绘制工具
     brew install gnuplot
 }
 
-hash dot 2>/dev/null || {
+hash dot 2>/dev/null || {       #dot是Graphviz工具集的一个命令行程序，从文本生成图形图像
     brew install graphviz
 }
 
-hash convert 2>/dev/null || {
+hash convert 2>/dev/null || {      #convert是ImageMagick工具集的一个命令行，图像处理和转换
     brew install imagemagick
 }
 
-hash rsvg-converter 2>/dev/null || {
+hash rsvg-converter 2>/dev/null || {     #rsvg-converter将svg矢量图转换成其他格式，librsvg库（渲染svg图）的一部分
     brew install librsvg
 }
 
-hash udunits2 2>/dev/null || {
+hash udunits2 2>/dev/null || {      #udunits2处理和转换单位units和物理量（physical quantities）
     brew install udunits
 }
 
-# weird dependancies by Cairo.pm
+# weird dependancies by Cairo.pm    #Cairo.pm是perl绑定的库，用于绘图，cario图形库的perl接口。cario.pm需要一些系统库或图形依赖才能工作，下面一行解决这个
 # brew install linuxbrew/xorg/libpthread-stubs linuxbrew/xorg/renderproto linuxbrew/xorg/kbproto linuxbrew/xorg/xextproto
+#安装与X11图形系统相关的底层依赖库，来支持cario.pm。
 
-# gtk+3
+# gtk+3     #安装与gtk+3图形界面库相关的依赖
 # brew install gsettings-desktop-schemas gtk+3 adwaita-icon-theme gobject-introspection
