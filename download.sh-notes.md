@@ -33,7 +33,7 @@ for OP in dotfiles; do  #定义for循环（遍历一个列表，并将每个元�
     else
         echo "==> Pull $OP"
         pushd "$HOME/Scripts/$OP" > /dev/null  #pushd命令（将当前工作目录保存到“目录堆栈”并切换到目标目录，临时切换目录）。>重定向到/dev/null，丢弃它的输出（不显示在终端），脚本执行更干净。
-        git pull
+        git pull  #拉取远程仓库的最新更新
         popd > /dev/null  #popd命令（pushd的反操作，从目录堆栈中弹出之前保存的目录并切换回原来目录），回到执行pushd前的目录
     fi
 done  #结束for循环
