@@ -33,6 +33,7 @@ else
     echo "==> Updating .bashrc with PERL_534_PATH..."
     PERL_534_BREW=$(brew --prefix)/Cellar/$(brew list --versions perl | sed 's/ /\//' | head -n 1)  #brew list --versions perl（列出通过brew安装的perl的版本信息）
     #sed 's/ /\//'中，sed流编辑器（处理文本），sed 's/ /\//'表示将输出内容中的第一个空格替换成/，从而构造类似路径的字符串，符合homebrew cellar目录结构的格式。最终可能是/usr/local/Cellar/perl/5.34.0这个路径
+    #sed（stream editor）。单引号'包裹s/ /\//这个表达式，''中字符按字面意义解释而不产生其他意思。s/是sed中进行替换substitution的命令。空格是要查找并被替换的字符。第二个/为分隔符。反斜杠\转义。/是要替换空格的内容。最后一个/分隔符。
     PERL_534_PATH="export PATH=\"$PERL_534_BREW/bin:\$PATH\""   #反斜杠\表示对后面的字符进行转义处理
     #第一个\"转义双引号，保持"字面意义并让它出现在字符串内部。第二个\$转义美元符号，让$PATH作为文本字符串被处理，而不被当成环境变量的值展开。第三个\"同第一个。
     echo '# PERL_534_PATH' >> $HOME/.bashrc
