@@ -1,25 +1,30 @@
 #!/bin/bash
 
-BASE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+BASE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )    #BASE_DIR（储存某个路径，特别是脚本中存储脚本文件所在目录路径）。
+#BASH_SOURCE[0]表示，当前正在执行的脚本文件的路径，[0]当前脚本本身。dirname命令（返回指定路径的目录部分，如/usr/script.sh返回/usr）。cd切换到脚本所在目录。pwd命令（print working directory）打印目录
 
-cd "${BASE_DIR}" || exit
+cd "${BASE_DIR}" || exit   #切换到base_dir赋值的目录，失败则退出。避免继续执行错误命令。
 
 hash cpanm 2>/dev/null || {
     curl -L https://cpanmin.us | perl - App::cpanminus
 }
 
 CPAN_MIRROR=https://mirrors.ustc.edu.cn/CPAN/
-NO_TEST=--notest
+NO_TEST=--notest    #NO_TEST变量（存储信息），--notest禁用测试功能。
 
 # basic modules
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Archive::Extract Config::Tiny File::Find::Rule Getopt::Long::Descriptive JSON JSON::XS Text::CSV_XS YAML::Syck
+#Archive::Extract模块（解压归档文件），Config::Tiny（INI文件解析器），File::Find::Rule（递归查找文件），Getopt::Long::Descriptive（扩展Getopt::Long，简化命令行选项的解析）
+#JSON（json格式的编解码器），JSON::XS（比JSON更快），Text::CSV（快速处理csv文件），YAML::Syck（解析和生成YAML格式）
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST App::Ack App::Cmd DBI MCE Moo Moose Perl::Tidy Template WWW::Mechanize XML::Parser
+#App::Ack快速在代码库进行文本搜索，App::Cmd构建perl命令行，DBI（database interfere）perl中用于与数据库交互，MCE（Multi-Processing Engine）并行处理，Moo面向对象编程
+#Moose面向对象编程框架（更复杂），Perl::Tidy（脚本格式化），Template生成动态内容、网页开发，WWW::Mechanize自动化网页交互，XML::Parser解析处理xml文件
 
 # RepeatMasker need this
-cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Text::Soundex
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Text::Soundex   #帮助比较发音相似的单词或名字，常用于数据清理、去重和匹配等。Text::Soundex计算和处理soundex编码，soundex将单词转为编码。
 
 # GD
-cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST GD SVG GD::SVG
+cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST GD SVG GD::SVG   #GD图形库，SVG矢量图，GD::SVG利用gd绘制矢量图并输出svg格式
 
 # bioperl
 cpanm --mirror-only --mirror $CPAN_MIRROR $NO_TEST Data::Stag Test::Most URI::Escape Algorithm::Munkres Array::Compare Clone Error File::Sort Graph List::MoreUtils Set::Scalar Sort::Naturally
