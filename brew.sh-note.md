@@ -144,6 +144,9 @@ hash pandoc 2>/dev/null || {     #pandoc开源文档转换工具
     brew install pandoc
 }
 
+#hash解释
+#缓存命令路径记录下来，把路径和命令名称关联储存到哈希表中。哈希表：键值对形式组织数据，利用哈希函数，把键转化为哈希值，哈希值定位数据在哈希表中位置
+
 hash gnuplot 2>/dev/null || {     #gnuplot强大的开源命令行图形绘制工具
     brew install gnuplot
 }
