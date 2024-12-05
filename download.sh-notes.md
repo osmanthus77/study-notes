@@ -2,7 +2,7 @@
 
 echo "====> Download Genomics related tools <===="
 
-mkdir -p $HOME/bin    #主目录下创建bin，如存在，-p不报错直接跳过；$HOME不存在，创建再创建bin。mkdir命令（make directory，创建目录/文件夹），-p（父目录不存在时，创建父目录）
+mkdir -p $HOME/bin    #主目录下创建bin，如存在，-p不报错直接跳过；$HOME不存在，创建再创建bin。mkdir命令（make directory，创建目录/文件夹），-p（，--parents，递归创建路径并避免错误，父目录不存在时，创建父目录）
 mkdir -p $HOME/.local/bin 
 mkdir -p $HOME/share
 mkdir -p $HOME/Scripts
@@ -14,6 +14,7 @@ else
     echo "==> Update .bashrc"  #.bashrc配置文件，用于自定义配置bash的行为和环境，定义了每次打开终端的一些默认行为
 
     HOME_PATH='export PATH="$HOME/bin:$HOME/.local/bin:$PATH"'  #定义变量HOME_PATH，值为后面一串字符串。export PATH="..."把...添加到PATH环境变量中，在当前shell和子进程中均生效，不用export定义的话只在当前shell生效。$PATH原来的PATH变量保留在最后，不丢失原来系统环境
+    #变量赋值=两侧不能有空格，否则HOME_PATH被当成命令，=和后面内容被当成参数，报错
     echo '# Homebin' >> $HOME/.bashrc  #>>追加内容
     echo $HOME_PATH >> $HOME/.bashrc  #把刚才定义的HOME_PATH变量追加到.bashrc中
     echo >> $HOME/.bashrc  #输出空行追加文件中
@@ -24,7 +25,7 @@ fi
 # Clone or pull other repos
 for OP in dotfiles; do  #定义for循环（遍历一个列表，并将每个元素赋值给OP，这里指dotfiles），用for更有扩展性，可能会有多可仓库不止dotfiles。OP循环变量（每次循环时从列表中获取的元素），OP可任意命名。
     if [[ ! -d "$HOME/Scripts/$OP/.git" ]]; then  #检查$HOME/Scripts/$OP路径下是否存在.git目录，是否有git仓库。-d判断是否存在。！表示取反。如果没有.git目录。$OP循环的元素，这里dotfiles
-        if [[ ! -d "$HOME/Scripts/$OP" ]]; then  #检查$HOME/Scripts/下是否存在dotfiles目录
+        if [[ ! -d "$HOME/Scripts/$OP" ]]; then  #检查$HOME/Scripts/下是否存在dotfiles目录，-d（directory）
             echo "==> Clone $OP"
             git clone https://github.com/wang-q/${OP}.git "$HOME/Scripts/$OP"
         else
@@ -32,23 +33,26 @@ for OP in dotfiles; do  #定义for循环（遍历一个列表，并将每个元�
         fi
     else
         echo "==> Pull $OP"
-        pushd "$HOME/Scripts/$OP" > /dev/null  #pushd命令（将当前工作目录保存到“目录堆栈”并切换到目标目录，临时切换目录）。>重定向到/dev/null，丢弃它的输出（不显示在终端），脚本执行更干净。
+        pushd "$HOME/Scripts/$OP" > /dev/null  #pushd命令（push directory将当前工作目录保存到“目录堆栈”并切换到目标目录，临时切换目录）。>重定向到/dev/null（虚拟设备文件），丢弃输入它的数据并返回空数据（不显示在终端），脚本执行更干净。
         git pull  #拉取远程仓库的最新更新
         popd > /dev/null  #popd命令（pushd的反操作，从目录堆栈中弹出之前保存的目录并切换回原来目录），回到执行pushd前的目录
     fi
 done  #结束for循环
 
 # alignDB
-# chmod +x $HOME/Scripts/alignDB/alignDB.pl  #chmod命令（change mod，改变文件或目录权限）。+x参数（x执行权限，+x给文件添加执行权限，让文件像程序一样可执行）。 .pl表示perl脚本
-# ln -fs $HOME/Scripts/alignDB/alignDB.pl $HOME/bin/alignDB.pl  #ln命令（创建链接），-f参数（强制删除目标文件），-s参数（创建符号链接）。前一个源文件，后一个目标位置
+# chmod +x $HOME/Scripts/alignDB/alignDB.pl  #chmod命令（change mod，改变文件或目录权限）。+x参数（execute permission执行权限，+x给文件添加执行权限，让文件像程序一样可执行）。 .pl表示perl脚本
+# ln -fs $HOME/Scripts/alignDB/alignDB.pl $HOME/bin/alignDB.pl  #ln命令（link创建链接），-f参数（force强制删除目标文件），-s参数（soft/symlink创建符号链接）。前一个源文件，后一个目标位置
 
 echo "==> Jim Kent bin"  Jim Kent bin 用于基因组学分析的bin
 cd $HOME/bin/   #切换当前目录到/bin。cd命令（change directory，改变目录）。
 RELEASE=$( ( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1 )  #获取当前系统发行版本/操作系统类型，并将结果保存到RELEASE变量中。
-#lsb_release命令（显示linux发行版信息）。-d显示发行版描述信息。-s只显示简洁名称。||逻辑运算符（或），前一命令失败执行后一个。cat命令（查看文件内容，输出到终端or传递给其他命令）。*release通配符，所有以release结尾的文件名。uname命令（显示操作系统信息）。-o显示操作系统名称，-m显示机器的硬件架构（eg.x86_64）
+#lsb_release命令（linux standard base release显示linux发行版信息）。-d（description）显示发行版描述信息。-s（short output）只显示字段的值。||逻辑运算符（或），前一命令失败执行后一个。
+#cat命令（concatenate查看文件内容，输出到终端or传递给其他命令）。*release通配符，所有以release结尾的文件名。
+#uname命令（unix name显示操作系统信息）。-o（operating system）显示操作系统名称，-m（machine）显示机器的硬件架构（eg.x86_64）
 #2>/dev/null重定向输出错误，前面命令出现错误时不显示在终端。2（标准错误输出stderr）>重定向符号，/dev/null特殊的设备文件，丢弃所有输入它的数据。
 #head -n1（前面命令成功时传给head -n1，显示管道传入数据的第一行）。head命令（显示文件的前几行，默认前10行）
-if [[ $(uname) == 'Darwin' ]]; then  #判断当前系统是否macos。$(uname)当前操作系统名称。[[ ... ]]条件测试。==字符串相等比较。
+if [[ $(uname) == 'Darwin' ]]; then  
+#判断当前系统是否macos。darwin是mac的操作系统内核。$(uname)当前操作系统名称。[[ ... ]]条件测试。==字符串相等比较。
     curl -L https://github.com/wang-q/ubuntu/releases/download/20190906/jkbin-egaz-darwin-2011.tar.gz
 else  #系统非macos的话
     if echo ${RELEASE} | grep CentOS > /dev/null ; then  #${RELEASE}引用变量RELEASE的值（刚才得到的操作系统信息），再用echo输出到grep。grep命令（搜索指定字符串，这里centos）
