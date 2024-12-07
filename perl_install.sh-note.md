@@ -1,7 +1,8 @@
 #!/bin/bash
 
 BASE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )    #BASE_DIR（储存某个路径，特别是脚本中存储脚本文件所在目录路径）。
-#BASH_SOURCE[0]表示，当前正在执行的脚本文件的路径，[0]当前脚本本身。dirname命令（返回指定路径的目录部分，如/usr/script.sh返回/usr）。cd切换到脚本所在目录。pwd命令（print working directory）打印目录
+#BASH_SOURCE[0]表示，当前正在执行的脚本文件的路径，[0]当前脚本本身。dirname命令（返回指定路径的目录部分，如/usr/script.sh返回/usr）。
+#cd切换到脚本所在目录。pwd命令（print working directory）打印目录
 
 cd "${BASE_DIR}" || exit   #切换到base_dir赋值的目录，失败则退出。避免继续执行错误命令。
 
