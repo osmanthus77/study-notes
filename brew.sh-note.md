@@ -44,7 +44,8 @@ else
     eval $PERL_534_PATH
 fi
 
-hash cpanm 2>/dev/null || {   #hash命令（查找命令的位置并将其缓存，提高效率；也可以检查命令是否已经缓存）。cpanm（cpanminus命令行工具的缩写）。2>/dev/null ||标准错误输出重定向丢弃，如cpanm没安装也不输出错误信息
+hash cpanm 2>/dev/null || {   
+#hash命令（查找命令的位置并将其缓存，提高效率；也可以检查命令是否已经缓存）。cpanm（cpanminus命令行工具的缩写）。2>/dev/null ||标准错误输出重定向丢弃，如cpanm没安装也不输出错误信息
     curl -L https://cpanmin.us |  #判断没有cpanm后用这两行命令下载安装cpanm
         perl - -v --mirror-only --mirror http://mirrors.ustc.edu.cn/CPAN/ App::cpanminus  #perl表示用perl执行脚本，-表示告诉perl从标准输入读取脚本（上面下载的）。
         #-v（verbose详细信息）。--mirror-only长选项（cpanm特有，表示仅使用镜像源）。--mirror 指定后面链接为镜像源。App::cpanminus是cpanm工具核心模块，安装后可在系统上用cpanm安装perl模块
