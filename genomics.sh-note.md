@@ -11,7 +11,18 @@ echo "==> Anchr"
 #-S（show errors when -s is uesd搭配-s使用，显示错误信息，避免silent隐藏错误导致问题难以排查）  -L（follow redirects自动跟随重定向）
 
 echo "==> Install bioinformatics softwares"
-brew tap brewsci/bio
+brew tap brewsci/bio   
 brew tap brewsci/science
 
 brew install clustal-w mafft muscle trimal
+brew install lastz diamond paml fasttree iqtree # raxml
+brew install raxml --without-open-mpi
+brew install --force-bottle newick-utils
+brew install fastqc # kat
+brew install bowtie bowtie2 bwa
+brew install samtools picard-tools
+brew install stringtie hisat2 # tophat cufflinks
+brew install seqtk minimap2 minigraph #gfatools
+brew install genometools # igvtools
+brew install --build-from-source snp-sites #macOS bottles broken
+brew install bcftools
