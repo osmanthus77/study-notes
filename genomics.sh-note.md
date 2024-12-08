@@ -11,10 +11,10 @@ echo "==> Anchr"
 #-S（show errors when -s is uesd搭配-s使用，显示错误信息，避免silent隐藏错误导致问题难以排查）  -L（follow redirects自动跟随重定向）
 
 echo "==> Install bioinformatics softwares"
-brew tap brewsci/bio   
-brew tap brewsci/science
+brew tap brewsci/bio   #基于homebrew的管理生信工具的软件包库，homebrew社区中安装生信工具的tap扩展源
+brew tap brewsci/science  #homebrew另一tap扩展源，用于安装计算统计等，已弃用
 
-brew install clustal-w mafft muscle trimal
+brew install clustal-w mafft muscle trimal    #多序列比对工具，trimal比对结果修剪
 brew install lastz diamond paml fasttree iqtree # raxml
 brew install raxml --without-open-mpi
 brew install --force-bottle newick-utils
