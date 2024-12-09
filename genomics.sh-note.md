@@ -51,3 +51,54 @@ brew install ntcard   #分析基因组数据中snp和基因型数据，计算不
 brew install gatk freebayes   #freebayes从高通量测序数据中分析多样性和变异检测，主要snp/indel/结构变异，利用贝叶斯方法评估，适用单倍型分型/群体基因组
 #gatk(Genome Analysis Toolkit)broad institute开发工具组，分析高通量基因组，尤其变异检测、基因组分析、基因型质控、基因组注释
 
+# brew unlink proj
+brew install --force-bottle blast
+
+echo "==> Custom taq"
+brew tap wang-q/tap
+brew install faops multiz sparsemem intspan   #faops专门操作fasta格式（序列提取、转换格式、序列统计etc） multiz多序列比对（搭配blastz）用于进化分析/基因组注释
+#sparsemem内存优化的比对工具，比对基因组中长片段找同源区域，大规模数据。 intspan处理区间interval数据，分析染色体上基因组区域、处理大规模变异位点etc
+# brew install multiz --cc=gcc   #--cc参数（指定使用c编译器），gcc（GNU Compiler collection），指定使用gcc编译器安装multiz
+# brew install jrunlist jrange   #
+
+echo "==> circos"   #circos可视化基因组数据，1⃣️环形布局呈现，展示基因组间相似性、重排、变异和关联
+brew install wang-q/tap/circos@0.69.9
+
+echo "==> RepeatMasker"    #识别和屏蔽基因组中重复序列，以来rmblast工具序列搜索
+brew install hmmer easel    #hmmer基于隐马尔可夫模型（Hiddern Markov Model）的序列分析，比对、分类和注释。
+#easel是hmmer中的工具集，是hammer的底层依赖，序列格式转换、数据清理、简单统计
+
+brew install wang-q/tap/rmblast@2.14.1   #rmblast(RepeatMasker Blast)，搜索重复序列，加速repeatmasker分析
+# brew link rmblast@2.14.1 --overwrite   
+#link命令（将安装的软件包链接到系统的全局可用路径，如/bin/，使得可从命令行直接访问使用。--overwrite（如目标位置出现重复则覆盖旧版本）
+
+brew install wang-q/tap/trf@4   #trf(Tandem Repeat Finder)检测串联重复序列、报告详细信息
+#一个/多个序列在基因组连续重复出现（微卫星Microsatellites、中卫星Minisatellites），影响基因表达等
+
+brew install wang-q/tap/repeatmasker@4.1.1
+
+# Config repeatmasker   #给repeatmasker配置环境、参数等，确保可以正确识别和屏蔽重复序列
+pip3 install h5py     #h5py是一个python库（读取和写入HDF5格式文件，Hierarchical Data Format version5储存大规模数据）
+
+cd $(brew --prefix)/Cellar/repeatmasker@4.1.1/4.1.1/libexec
+perl configure \      #用perl运行命令。configure是repeatmasker的配置脚本。配置环境并设置外部工具路径
+    -hmmer_dir=$(brew --prefix)/bin \    #指定hmmer工具的路径
+    -rmblast_dir=$(brew --prefix)/Cellar/rmblast@2.14.1/2.14.1/bin \
+    -libdir=$(brew --prefix)/Cellar/repeatmasker@4.1.1/4.1.1/libexec/Libraries \    #指定repeatmasker使用的库文件目录路径
+    -trf_prgm=$(brew --prefix)/bin/trf \
+    -default_search_engine=rmblast    #指定默认的序列比对引擎为rmblast
+
+cd -    #快捷命令，返回上一个工作目录
+
+#echo "==> Config repeatmasker"
+#wget -N -P /tmp https://github.com/egateam/egavm/releases/download/20170907/repeatmaskerlibraries-20140131.tar.gz
+# -N（--timestamping时间戳，只下载更新的文件，保持文件的最新版本）  -P（--directory-prefix，指定文件下载的保存路径），保存到/tmp目录下
+#
+#pushd $(brew --prefix)/opt/repeatmasker/libexec
+#rm -fr lib/perl5/x86_64-linux-thread-multi/   #rm(remove)  -r(--recursive)
+#rm Libraries/RepeatMasker.lib*    #RepeatMasker.lib*以RepeatMasker.lib开头的所有文件
+#rm Libraries/DfamConsensus.embl
+#tar zxvf /tmp/repeatmaskerlibraries-20140131.tar.gz  #tar（tape archive） z(--gzip) x(--extract) v(--verbose) f(--file)
+#sed -i".bak" 's/\/usr\/bin\/perl/env/' configure.input  #configure.input中/usr/bin/perl替换为env
+#./configure < configure.input   #./configure脚本文件，准备和配置repeatmasker的编译环境，源代码提供的。<重定向，从后面文件读取数据
+#popd
