@@ -101,4 +101,4 @@ cd -    #快捷命令，返回上一个工作目录
 #tar zxvf /tmp/repeatmaskerlibraries-20140131.tar.gz  #tar（tape archive） z(--gzip) x(--extract) v(--verbose) f(--file)
 #sed -i".bak" 's/\/usr\/bin\/perl/env/' configure.input  #configure.input中/usr/bin/perl替换为env
 #./configure < configure.input   #./configure脚本文件，准备和配置repeatmasker的编译环境，源代码提供的。<重定向，从后面文件读取数据
-#popd
+#popd  #pushd反操作
