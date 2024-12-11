@@ -75,3 +75,23 @@ else
     echo "Tese failed: Expected '3', but got '$output'."
 fi
 ```
+
+### 测试3
+```
+@test "faops exists and is executable" {
+    [ -x $BATS_TEST_DIRNAME/../faops ]
+}
+```
+`[...]`条件测试检查文件`faops`是否存在并且具有执行权限。-x（--executable测试文件是否可执行）。   
+`$BATS_TEST_DIRNAME`bats内置变量，当前这个测试文件所在的目录路径。`../faops`代表内置变量的上一级目录中名为`faops`的文件
+### 还原为命令
+```
+#设置路径
+file="../faops"
+#检查文件是否存在且可执行
+if [ +x "$file" ]; then
+    echo "Test passed: '$file' exists and is executable."
+else
+    echo "Test failed: '$file' does not exist or is not executable."
+fi
+```
