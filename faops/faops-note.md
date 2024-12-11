@@ -17,7 +17,7 @@ make
 ```
 
 ## 使用说明
-用法：faops <command> [option] <arguments>     
+用法：faops command option arguments     
 option可选的参数，必须跟在command后，命令不同option不同    
 arguments必要参数，输入的数据/参数，eg文件路径/数据等    
 
