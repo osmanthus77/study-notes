@@ -223,6 +223,7 @@ read0
 ```
 
 输出：rcout.fa文件内容
+```
 >read0
 AGAGCGtCGACACAaTggctgACtTgTGtAccTgaGaacAGagcaGCtGAcTTggCAAgTtCGcaGgCGCTCGcattAaC
 ttggtTAAtGTAgCtCCtCgaACGcgaAtCGtAtCaAggGtagAAGACttgaAaTaGGGGagtGTCaCAtcCgccTTaGt
@@ -247,7 +248,7 @@ AGGgaGcCTGgcTAaCTGttCTtGatTGtCgATTtCgAaggAGattagcTTgccg
 ```
 
 ### 7.one/some提取特定序列
-根据给定列表中序列名称提取特定序列。列表中包含序列名称，以回车为分隔
+根据给定列表中序列名称提取特定序列。列表中包含序列名称，以回车为分隔    
 用法：
 ```
 faops some [options] <input.fa> <list.file> <output.fa>
@@ -263,7 +264,7 @@ faops some [options] <input.fa> <list.file> <output.fa>
 faops some -l 80 test.fa list.file someout.fa
 ```
 
-输出：someout.fa文件内容
+输出：someout.fa文件内容    
 ```
 >read0
 tCGTTTAACCCAAatcAAGGCaatACAggtGggCCGccCatgTcAcAAActcgatGAGtgGgaAaTGgAgTgaAGcaGCA
