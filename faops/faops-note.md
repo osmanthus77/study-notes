@@ -174,7 +174,7 @@ read3:68-69
 
 
 ### 5.frag提取指定序列片段
-从序列文件提取指定区域，默认对第一个序列进行
+从序列文件提取指定区域，默认对第一个序列进行    
 用法：
 ```
 faops frag [options] <input.fa> start end <output.fa>
@@ -184,9 +184,11 @@ faops frag [options] <input.fa> start end <output.fa>
 -l       length指定提取片段的分行宽度，默认80
 ```
 输入：
+```
 faops frag -l 50 test.fa 10 70 fragout.fa
 ```
-输出：fragout.fa文件内容
+
+输出：fragout.fa文件内容    
 ```
 >read0:10-70
 CCAAatcAAGGCaatACAggtGggCCGccCatgTcAcAAActcgatGAGt
