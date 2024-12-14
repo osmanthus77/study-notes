@@ -472,12 +472,12 @@ faops n50 [options] <input.fa> [more_files.fa]
 ```
 选项：
 ```
--H     只返回统计值，没有统计值的名称
+-H     只返回统计值，没有统计值的名称header
 -N     计算n值，默认50
 -S     输出所有contig长度的累计和sum
 —A     输出平均contig长度average
 -E     计算E值(contig长度加权平均)
--C     输出总的序列数量
+-C     输出总的序列数量count
 -g     指定基因组大小，有-g时计算N值考虑基因组预期大小，并允许根据预期大小对结果归一化，可判断组装是否完整、是否覆盖整个基因组
 ```
 输入：
@@ -547,6 +547,7 @@ faops interleave [options] <R1.fa> <R2.fa>
 -p     设置新的序列名称前缀，默认read
 -s     起始序号，默认0
 -l     序列分行宽度，默认80
+-q     合并fq测序格式
 ```
 输入：
 ```
