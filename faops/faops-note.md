@@ -421,11 +421,11 @@ GccCtatAtgaTtCcGatcGCaTaTC
 ```
 faops split-about [options] <input.fa> <approx_size> <output.dir>
 ```
-`approx_size`指碱基片段的长度，以字节bytes为单位，每个碱基为1字节    
+`approx_size`指拆分后文件的预期碱基片段的长度，以字节bytes为单位，每个碱基为1字节    
 选项：
 ```
--e     拆分出来的文件分到的序列数量平均
--m     最多拆分的数量
+-e     even拆分出来的文件分到的序列数量平均
+-m     max parts最多拆分的数量
 -l     序列分行宽度，默认80
 ```
 输入：
