@@ -294,7 +294,7 @@ faops order test.fa \
     <(faops size test.fa | sort -n -r -k2,2 | cut -f 1) \
     orderout.fa
 ```
-`<(...)`进程替换，(...)的内部命令输出被当作临时文件路径传递给前面命令（faops order）   
+`<(...)`进程替换，(...)的内部命令输出被当作临时文件/虚拟**文件**路径传递给前面命令（faops order）。`$(...)`输出作为**字符串**传递给命令
 `sort -n -r -k2,2`对结果排序，`-n`（numeric）按数值排序，`-r`（reverse）倒序从大到小，`-k2,2`（key）指定排序的列，第二列到第二列     
 `cut -f 1`从文本提取指定列的数据，`-f`（field）提取的字段，`=1`这里提取每行第一字段    
 输出：orderout.fa文件内容
