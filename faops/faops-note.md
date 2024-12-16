@@ -18,7 +18,7 @@ make
 
 ## 使用说明
 用法：faops \<command\> [option] \<arguments\>     
-option可选的参数，必须跟在command后，命令不同option不同    
+option可选的参数，必须跟在command后，命令不同option不同    e
 arguments必要参数，输入的数据/参数，eg文件路径/数据等    
 
 ### 1.获取帮助faops help
@@ -256,7 +256,7 @@ faops some [options] <input.fa> <list.file> <output.fa>
 
 选项：
 ```
--i     反向提取名称不在列表中的序列
+-i     反向提取名称不在列表中的序列exclude
 -l     输出时序列分行宽度
 ```
 输入：
@@ -365,11 +365,11 @@ faops filter [options] <input.fa> <output.fa>
 -n     设置N出现次数的上限
 -u     unique去除名称重复的序列，保留第一个
 -U     序列统一转为大写
--b     把同一序列取消换行并合并为一行
+-b     blocked把同一序列取消换行并合并为一行再以换行符隔开每条序列
 -N     将IUPAC模糊碱基用N替换，IUPAC模糊碱基：DNA序列中出现的不确定性或多样性，ACTG之外的碱基。
 -s     将序列名称简化simplify
 -l     序列分行长度，默认80
--d     删除序列中非标准的碱基（ACGT外的）
+-d     remove dashes删除序列中非标准的碱基（ACGT外的）
 ```
 输入：
 ```
@@ -600,7 +600,7 @@ faops region [options] <input.fa> <region.txt> <output.fa>
 ```
 选项：
 ```
--s     在序列名称中标注提取的方向
+-s     strand在序列名称中标注提取的方向
 -l     序列分行宽度，默认80
 ```
 输入：
