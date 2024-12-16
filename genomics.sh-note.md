@@ -23,13 +23,13 @@ brew install --force-bottle newick-utils  #强制使用预编译的二进制文�
 brew install fastqc # kat    #fastqc测序数据质控  kat（kmer analysis toolkit）基于k-mer分析评估可视化测序数据质量特性，特别是基因组装和序列比较
 brew install bowtie bowtie2 bwa  #reads比对到参考基因组  
 #bowtie（小于50bp全局比对） bowtie2（长达1000bp局部/全局比对） bwa（burrows-wheeler aligner，基因组学）
-brew install samtools picard-tools  #samtools处理sam/bam/cram格式文件转换、排序、索引etc  
+brew install samtools picard-tools  #samtools处理sam/bam/cram格式（sequence alignment map存储比对结果）文件转换、排序、索引etc  
 #picard-tools基于java编写的处理sam/bam文件，功能更高级（标记重复序列、排序、索引、收集比对信息）
 brew install stringtie hisat2 # tophat cufflinks  
 #stringtie（对比对后reads组装，生成转录本注释并估算表达水平，cufflinks高替）hisat2（RNA-seq比对参考基因组，生成bam，tophat2高替）
-brew install seqtk minimap2 minigraph #gfatools    #seqtk对fasta/fastq格式预处理（子采样、质量过滤、转换etc）  minimap2长序列快速比对参考基因组
+brew install seqtk minimap2 minigraph #gfatools    #seqtk对fasta/fastq格式预处理（子采样、质量过滤、转换etc） minimap2长序列快速比对参考基因组
 #minigraph构建基因组图结构（gfa格式，比线性参考基因组更好表示变异）  gfatools处理gfa格式（转换、统计信息、提取路径）
-brew install genometools # igvtools   #genometools处理分析基因组数据（尤其gff/gtf格式的基因组注释文件）
+brew install genometools # igvtools   #genometools处理分析基因组数据（尤其gff/gtf格式的基因组功能/注释文件）
 #igvtools（intergrative genomics viwer tools）与igv配套用，将基因组数据转为igv能读取的格式。igv可在图形界面查看基因组数据、比对结果、变异信息
 brew install --build-from-source snp-sites #macOS bottles broken  
 #snp-sites处理分析变异数据，vcf文件提取snp信息并生成适合下游分析的多序列比对（fasta/phylip格式）
